@@ -8,11 +8,13 @@ import {
   Text,
   Dimensions,
   Platform,
+  ScrollView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Background from '../bten-icons/translations-background-image.png';
 import HamburgerButton from '../bten-icons/burger.png';
 import {COLORS} from '../helpers/customColor';
+import translation from '../helpers/translation';
 
 const {height} = Dimensions.get('window');
 export default function Translations() {
@@ -32,53 +34,24 @@ export default function Translations() {
 
       <Text style={styles.title}>Ближайшие трансляции</Text>
 
-      <View>
-        <View style={styles.card}>
-          <View>
-            <Text style={styles.date}>20.02</Text>
-            <Text style={styles.hour}>23:00</Text>
-          </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {translation?.map(item => (
+          <View style={styles.card}>
+            <View>
+              <Text style={styles.date}>{item?.date}.03</Text>
+              <Text style={styles.hour}>{item?.time}</Text>
+            </View>
 
-          <View style={styles.match}>
-            <Text style={styles.matchText}>Inter - Athletic</Text>
+            <View style={styles.match}>
+              <Text style={styles.matchText}>
+                {item.team1}
+                {'\n'} - {'\n'}
+                {item.team2}
+              </Text>
+            </View>
           </View>
-        </View>
-
-        <View style={styles.card}>
-          <View>
-            <Text style={styles.date}>21.02</Text>
-            <Text style={styles.hour}>23:00</Text>
-          </View>
-
-          <View style={styles.match}>
-            <Text style={styles.matchText}>Napoli - Barcelona</Text>
-          </View>
-        </View>
-
-        <View
-          style={[styles.card, {marginTop: Platform.OS === 'ios' ? 65 : 45}]}>
-          <View>
-            <Text style={styles.date}>05.03</Text>
-            <Text style={styles.hour}>22:00</Text>
-          </View>
-
-          <View style={styles.match}>
-            <Text style={styles.matchText}>Bayern - Lazio</Text>
-          </View>
-        </View>
-
-        <View
-          style={[styles.card, {marginTop: Platform.OS === 'ios' ? 65 : 45}]}>
-          <View>
-            <Text style={styles.date}>13.03</Text>
-            <Text style={styles.hour}>23:00</Text>
-          </View>
-
-          <View style={styles.match}>
-            <Text style={styles.matchText}>Athletico - Inter</Text>
-          </View>
-        </View>
-      </View>
+        ))}
+      </ScrollView>
     </ImageBackground>
   );
 }
@@ -129,19 +102,19 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   matchText: {
-    fontSize: 42,
+    fontSize: 20,
     fontFamily: 'AlumniSans-Bold',
     color: COLORS.white,
-    textAlign: 'center',
+    textAlign: 'right',
   },
   date: {
-    fontSize: 42,
+    fontSize: 28,
     fontFamily: 'AlumniSans-Bold',
     color: COLORS.white,
     textAlign: 'left',
   },
   hour: {
-    fontSize: 30,
+    fontSize: 20,
     fontFamily: 'AlumniSans-Bold',
     color: COLORS.white,
     textAlign: 'left',
